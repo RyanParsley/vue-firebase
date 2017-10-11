@@ -38,7 +38,10 @@ export const actions = {
     })
   },
   autoSignIn ({commit}, payload) {
-    commit('setUser', payload)
+    return new Promise((resolve, reject) => {
+      commit('setUser', payload)
+      resolve()
+    })
   },
   userSignOut ({commit}) {
     firebase.auth().signOut()
@@ -46,10 +49,10 @@ export const actions = {
     router.push('/')
   },
   getFirebaseData: function ({commit}, payload) {
-    payload.database().ref('/items').on('value', (snapshot) => {
+    firebase.database().ref('/items').on('value', (snapshot) => {
       const data = Object.entries(snapshot.val())
                          .map(([ key, value ]) => ({ key, value }))
-      commit('setFirebase', payload)
+      commit('setFirebase', firebase)
       commit('setItems', data)
     })
   }

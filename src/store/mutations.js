@@ -1,6 +1,7 @@
 export const mutations = {
   setUser (state, payload) {
     state.user = payload
+    this.dispatch('getFirebaseData')
   },
   setFirebase (state, payload) {
     state.firebase = payload
