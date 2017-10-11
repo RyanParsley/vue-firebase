@@ -20,7 +20,6 @@ export const mutations = {
     state.firebase.database().ref('/items').child(payload.key).remove()
   },
   pushItem (state, payload) {
-    state.firebase.push(payload)
-    state.items.push(payload)
+    state.firebase.database().ref('/items').push(payload)
   }
 }
