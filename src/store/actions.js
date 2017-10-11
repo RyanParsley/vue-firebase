@@ -20,8 +20,8 @@ export const actions = {
     commit('pushItem', payload)
   },
   // Remove child based on key - firebase function
-  removeItem: function (key) {
-    this.items.child(key).remove()
+  removeItem: function ({commit}, key) {
+    commit('removeItem', key)
   },
   userSignIn ({commit}, payload) {
     commit('setLoading', true)
@@ -46,10 +46,11 @@ export const actions = {
     router.push('/')
   },
   getFirebaseData: function ({commit}, payload) {
-    console.log('payload: ', payload)
-    payload.database().ref('items').on('value', function (snapshot) {
-      console.log('snapshot had: ', snapshot.val())
-      commit('setItems', snapshot.val())
+    payload.database().ref('/items').on('value', (snapshot) => {
+      const data = Object.entries(snapshot.val())
+                         .map(([ key, value ]) => ({ key, value }))
+      commit('setFirebase', payload)
+      commit('setItems', data)
     })
   }
 }
