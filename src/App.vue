@@ -73,7 +73,8 @@
       menuItems () {
         if (this.isAuthenticated) {
           return [
-            { title: 'Home', path: '/home', icon: 'home' }
+            { title: 'Home', path: '/home', icon: 'home' },
+            { title: 'Pantry', path: '/pantry', icon: 'home' }
           ]
         } else {
           return [

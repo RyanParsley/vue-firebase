@@ -5,6 +5,9 @@ export const getters = {
   getItems (state) {
     return state.items
   },
+  getPantryItems (state) {
+    return state.pantry
+  },
   getUser (state) {
     return state.user
   },

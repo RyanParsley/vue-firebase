@@ -17,6 +17,17 @@ export const mutations = {
       return {key: payload[key].key, value: payload[key].value}
     })
   },
+  setPantryItems (state, payload) {
+    state.pantry = Object.keys(payload).map(function (key) {
+      return {key: payload[key].key, value: payload[key].value}
+    })
+  },
+  removePantryItem (state, payload) {
+    state.firebase.database().ref('/pantry').child(payload.key).remove()
+  },
+  pushPantryItem (state, payload) {
+    state.firebase.database().ref('/pantry').push(payload)
+  },
   removeItem (state, payload) {
     state.firebase.database().ref('/items').child(payload.key).remove()
   },

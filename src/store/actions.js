@@ -19,6 +19,13 @@ export const actions = {
   addItem: function ({commit}, payload) {
     commit('pushItem', payload)
   },
+  addToPantry: function ({commit}, payload) {
+    commit('pushPantryItem', payload)
+  },
+  // Remove child based on key - firebase function
+  removeFromPantry: function ({commit}, key) {
+    commit('removePantryItem', key)
+  },
   // Remove child based on key - firebase function
   removeItem: function ({commit}, key) {
     commit('removeItem', key)
@@ -54,6 +61,12 @@ export const actions = {
                          .map(([ key, value ]) => ({ key, value }))
       commit('setFirebase', firebase)
       commit('setItems', data)
+    })
+    firebase.database().ref('/pantry').on('value', (snapshot) => {
+      const data = Object.entries(snapshot.val())
+                         .map(([ key, value ]) => ({ key, value }))
+      commit('setFirebase', firebase)
+      commit('setPantryItems', data)
     })
   }
 }
