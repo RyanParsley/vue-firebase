@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VueMarkdown from 'vue-markdown'
 import App from './App'
 import router from './router'
 import { store } from './store'
@@ -23,6 +24,9 @@ const unsubscribe = firebase.auth()
     router,
     store,
     render: h => h(App),
+    components: {
+      VueMarkdown
+    },
     created () {
       store.dispatch('autoSignIn', firebaseUser)
     }
